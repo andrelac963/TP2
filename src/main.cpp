@@ -13,7 +13,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-
   try
   {
     PointCollection *pointCollection = new PointCollection();
@@ -31,9 +30,14 @@ int main(int argc, char **argv)
     cout << "Erro ao abrir o arquivo " << e.filename << endl
          << endl;
   }
+  catch (FailedToReadFile e)
+  {
+    cout << "Erro ao ler o arquivo " << e.filename << endl
+         << endl;
+  }
   catch (exception e)
   {
-    cout << "Erro desconhecido: " << e.what() << endl
+    cout << "Erro desconhecido" << endl
          << endl;
   }
 

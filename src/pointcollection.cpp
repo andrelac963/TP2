@@ -32,9 +32,16 @@ void PointCollection::readFile(string filename)
   {
     while (getline(file, line))
     {
-      point.x = stoi(line.substr(0, line.find(" ")));
-      point.y = stoi(line.substr(line.find(" ") + 1, line.length()));
-      this->add(point);
+      try
+      {
+        point.x = stoi(line.substr(0, line.find(" ")));
+        point.y = stoi(line.substr(line.find(" ") + 1, line.length()));
+        this->add(point);
+      }
+      catch (exception e)
+      {
+        throw FailedToReadFile{filename};
+      }
     }
 
     file.close();
