@@ -14,14 +14,14 @@ SRC = src
 OBJ = obj
 INC = include
 BIN = bin
-OBJS = $(OBJ)/main.o $(OBJ)/pointcollection.o $(OBJ)/jarvis.o $(OBJ)/graham.o
-HDRS = $(INC)/pointcollection.hpp $(INC)/jarvis.hpp $(INC)/graham.hpp
+OBJS = $(OBJ)/main.o $(OBJ)/stack.o $(OBJ)/point.o $(OBJ)/jarvis.o $(OBJ)/graham.o
+HDRS = $(INC)/stack.hpp $(INC)/point.hpp $(INC)/jarvis.hpp $(INC)/graham.hpp
 CFLAGS = -Wall -c -I$(INC)
 
 EXE = $(BIN)/main
 
 all:  $(EXE)
-	$(EXE)
+	$(EXE) pontos.txt
 
 $(BIN)/main: $(OBJS)
 	$(CC) -g -o $(BIN)/main $(OBJS) $(LIBS)
@@ -29,8 +29,11 @@ $(BIN)/main: $(OBJS)
 $(OBJ)/main.o: $(HDRS) $(SRC)/main.cpp
 	$(CC) $(CFLAGS) -o $(OBJ)/main.o $(SRC)/main.cpp
 
-$(OBJ)/pointcollection.o: $(HDRS) $(SRC)/pointcollection.cpp
-	$(CC) $(CFLAGS) -o $(OBJ)/pointcollection.o $(SRC)/pointcollection.cpp
+$(OBJ)/stack.o: $(HDRS) $(SRC)/stack.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/stack.o $(SRC)/stack.cpp
+
+$(OBJ)/point.o: $(HDRS) $(SRC)/point.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/point.o $(SRC)/point.cpp
 
 $(OBJ)/jarvis.o: $(HDRS) $(SRC)/jarvis.cpp
 	$(CC) $(CFLAGS) -o $(OBJ)/jarvis.o $(SRC)/jarvis.cpp

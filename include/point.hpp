@@ -1,29 +1,27 @@
 //---------------------------------------------------------------------
-// Arquivo      : graham.hpp
+// Arquivo      : point.hpp
 // Conteudo     : programa
 // Autor        : André Luiz Alves Costa (andrelac963@gmail.com)
 // Historico    : 2023-00-00 - arquivo criado
 //---------------------------------------------------------------------
 
-#ifndef GRAHAM_HPP
-#define GRAHAM_HPP
+#ifndef POINT_HPP
+#define POINT_HPP
 
-#include <iostream>
-#include "stack.hpp"
-
-using namespace std;
-
-class Graham
+class Point
 {
 private:
-  Stack *stack;
-  Stack *convexHull;
+  int x;
+  int y;
 
 public:
-  Graham(Stack *stack);
-  ~Graham();
-  void run();
-  void print();
+  Point();
+  Point(int x, int y);
+  ~Point();
+  void setX(int x);
+  void setY(int y);
+  int getX();
+  int getY();
 };
 
 #endif

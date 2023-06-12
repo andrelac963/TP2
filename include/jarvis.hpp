@@ -9,20 +9,19 @@
 #define JARVIS_HPP
 
 #include <iostream>
-#include "pointcollection.hpp"
+#include "stack.hpp"
 
 using namespace std;
 
 class Jarvis
 {
 private:
-  PointCollection *pointCollection;
-  PointCollection *convexHull;
+  Stack *stack;
+  Stack *convexHull;
 
 public:
-  Jarvis(PointCollection *pointCollection);
+  Jarvis(Stack *stack);
   ~Jarvis();
-  int orientation(Point p, Point q, Point r);
   void run();
   void print();
 };

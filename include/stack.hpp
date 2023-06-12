@@ -1,15 +1,16 @@
 //---------------------------------------------------------------------
-// Arquivo      : pointcollection.hpp
+// Arquivo      : stack.hpp
 // Conteudo     : programa
 // Autor        : André Luiz Alves Costa (andrelac963@gmail.com)
 // Historico    : 2023-00-00 - arquivo criado
 //---------------------------------------------------------------------
 
-#ifndef POINTCOLLECTION_HPP
-#define POINTCOLLECTION_HPP
+#ifndef STACK_HPP
+#define STACK_HPP
 
 #include <iostream>
 #include <fstream>
+#include "point.hpp"
 
 using namespace std;
 
@@ -25,40 +26,30 @@ struct FailedToReadFile
   string filename;
 };
 
-// Estrutura para armazenar um ponto
-struct Point
+// Exceção para erros de acesso a posições inválidas
+struct OutOfRange
 {
-  int x;
-  int y;
+  string error;
 };
 
-// Estrutura para armazenar um nó da lista encadeada
-struct Node
-{
-  Point point;
-  Node *next;
-};
-
-// Classe para armazenar uma coleção de pontos
-class PointCollection
+class Stack
 {
 private:
-  Node *head;
-  Node *tail;
+  Point *points;
   int size;
+  int top;
 
 public:
-  PointCollection();
-  ~PointCollection();
-  void readFile(string filename);
-  void add(Point point);
-  void remove(Point point);
-  void print();
+  Stack(const int &size);
+  Stack(const string &filename);
+  ~Stack();
+  void push(Point point);
+  Point pop();
+  Point peek();
   int getSize();
   bool isEmpty();
-  bool contains(Point point);
-  Point *toArray();
-  void clear();
+  bool isFull();
+  void print();
 };
 
 #endif

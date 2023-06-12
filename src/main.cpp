@@ -7,30 +7,25 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "pointcollection.hpp"
-#include "jarvis.hpp"
+#include <sys/resource.h>
+#include "stack.hpp"
+#include "point.hpp"
 
 using namespace std;
+
+float difTempoUsuario(struct rusage *start, struct rusage *end)
+{
+  return (end->ru_utime.tv_sec - start->ru_utime.tv_sec) +
+         1e-6 * (end->ru_utime.tv_usec - start->ru_utime.tv_usec);
+}
 
 int main(int argc, char **argv)
 {
   try
   {
-    PointCollection *pointCollection = new PointCollection();
+    Stack *stack = new Stack(argv[1]);
 
-    pointCollection->readFile("pontos.txt");
-
-    pointCollection->print();
-
-    pointCollection->~PointCollection();
-
-    Jarvis *jarvis = new Jarvis(pointCollection);
-
-    jarvis->run();
-
-    jarvis->print();
-
-    delete pointCollection;
+    stack->print();
   }
   catch (FailedToOpenFile e)
   {
@@ -40,6 +35,11 @@ int main(int argc, char **argv)
   catch (FailedToReadFile e)
   {
     cout << "Erro ao ler o arquivo " << e.filename << endl
+         << endl;
+  }
+  catch (OutOfRange e)
+  {
+    cout << e.error << endl
          << endl;
   }
   catch (exception e)
