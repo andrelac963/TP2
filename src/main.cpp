@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <sys/resource.h>
 #include "stack.hpp"
-#include "point.hpp"
+#include "jarvis.hpp"
+#include "graham.hpp"
 
 using namespace std;
 
@@ -23,9 +24,66 @@ int main(int argc, char **argv)
 {
   try
   {
-    Stack *stack = new Stack(argv[1]);
+    //
+    struct rusage start, end;
 
-    stack->print();
+    Stack *stack = new Stack("ENTRADA10.txt");
+
+    //
+    getrusage(RUSAGE_SELF, &start);
+
+    Graham *graham = new Graham(stack);
+
+    graham->convexHullGrahamMergeSort();
+
+    delete graham;
+
+    getrusage(RUSAGE_SELF, &end);
+
+    cout << "GRAHAM+MERGESORT: " << difTempoUsuario(&start, &end) << "s" << endl
+         << endl;
+
+    //
+    getrusage(RUSAGE_SELF, &start);
+
+    Graham *graham = new Graham(stack);
+
+    graham->convexHullGrahamInsertionSort();
+
+    delete graham;
+
+    getrusage(RUSAGE_SELF, &end);
+
+    cout << "GRAHAM+INSERTIONSORT: " << difTempoUsuario(&start, &end) << "s" << endl
+         << endl;
+
+    //
+    getrusage(RUSAGE_SELF, &start);
+
+    Graham *graham = new Graham(stack);
+
+    graham->convexHullGrahamCountingSort();
+
+    delete graham;
+
+    getrusage(RUSAGE_SELF, &end);
+
+    cout << "GRAHAM+LINEAR: " << difTempoUsuario(&start, &end) << "s" << endl
+         << endl;
+
+    //
+    getrusage(RUSAGE_SELF, &start);
+
+    Jarvis *jarvis = new Jarvis(stack);
+
+    jarvis->convexHullJarvis();
+
+    delete jarvis;
+
+    getrusage(RUSAGE_SELF, &end);
+
+    cout << "JARVIS: " << difTempoUsuario(&start, &end) << "s" << endl
+         << endl;
   }
   catch (FailedToOpenFile e)
   {

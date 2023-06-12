@@ -88,6 +88,48 @@ void Stack::push(Point point)
   this->points[++this->top] = point;
 }
 
+void Stack::setPoint(const int &index, Point point)
+{
+  if (index < 0 || index > this->top)
+  {
+    throw OutOfRange{"A posição " + to_string(index) + " não existe na pilha."};
+  }
+
+  this->points[index] = point;
+}
+
+void Stack::swap(const int &index1, const int &index2)
+{
+  if (index1 < 0 || index1 > this->top)
+  {
+    throw OutOfRange{"A posição " + to_string(index1) + " não existe na pilha."};
+  }
+
+  if (index2 < 0 || index2 > this->top)
+  {
+    throw OutOfRange{"A posição " + to_string(index2) + " não existe na pilha."};
+  }
+
+  Point aux = this->points[index1];
+  this->points[index1] = this->points[index2];
+  this->points[index2] = aux;
+}
+
+Point Stack::getPoint(const int &index)
+{
+  if (index < 0 || index > this->top)
+  {
+    throw OutOfRange{"A posição " + to_string(index) + " não existe na pilha."};
+  }
+
+  return this->points[index];
+}
+
+Point *Stack::getPoints()
+{
+  return this->points;
+}
+
 Point Stack::pop()
 {
   if (this->isEmpty())
@@ -108,9 +150,29 @@ Point Stack::peek()
   return this->points[this->top];
 }
 
+Point Stack::peekNextToTop()
+{
+  if (this->isEmpty())
+  {
+    throw OutOfRange{"A pilha está vazia."};
+  }
+
+  if (this->top == 0)
+  {
+    return this->points[this->top];
+  }
+
+  return this->points[this->top - 1];
+}
+
 int Stack::getSize()
 {
   return this->size;
+}
+
+int Stack::getTop()
+{
+  return this->top;
 }
 
 bool Stack::isEmpty()
@@ -132,6 +194,6 @@ void Stack::print()
 
   for (int i = 0; i <= this->top; i++)
   {
-    cout << "(" << this->points[i].getX() << ", " << this->points[i].getY() << ")" << endl;
+    cout << "(" << this->points[i].getX() << ", " << this->points[i].getY() << ")" << endl << endl;
   }
 }

@@ -40,3 +40,8 @@ int Point::getY()
 {
   return this->y;
 }
+
+double Point::getAngle()
+{
+  return atan2(this->y, this->x);
+}

@@ -8,6 +8,8 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
+#include <math.h>
+
 class Point
 {
 private:
@@ -22,6 +24,7 @@ public:
   void setY(int y);
   int getX();
   int getY();
+  double getAngle();
 };
 
 #endif

@@ -9,6 +9,7 @@
 #define GRAHAM_HPP
 
 #include <iostream>
+#include <math.h>
 #include "stack.hpp"
 
 using namespace std;
@@ -17,12 +18,14 @@ class Graham
 {
 private:
   Stack *stack;
-  Stack *convexHull;
+  Stack *convexHullStack;
 
 public:
   Graham(Stack *stack);
   ~Graham();
-  void run();
+  void convexHullGrahamMergeSort();
+  void convexHullGrahamInsertionSort();
+  void convexHullGrahamCountingSort();
   void print();
 };
 

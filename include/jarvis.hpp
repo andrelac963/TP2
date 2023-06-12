@@ -9,6 +9,7 @@
 #define JARVIS_HPP
 
 #include <iostream>
+#include "point.hpp"
 #include "stack.hpp"
 
 using namespace std;
@@ -22,7 +23,8 @@ private:
 public:
   Jarvis(Stack *stack);
   ~Jarvis();
-  void run();
+  int orientation(Point p, Point q, Point r);
+  void convexHullJarvis();
   void print();
 };
 
