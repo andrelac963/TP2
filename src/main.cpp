@@ -24,12 +24,12 @@ int main(int argc, char **argv)
 {
   try
   {
-    //
     struct rusage start, end;
 
-    Stack *stack = new Stack("ENTRADA10.txt");
+    // Cria a pilha de pontos a partir do arquivo de entrada passado como argumento
+    Stack *stack = new Stack(argv[1]);
 
-    //
+    // Implementa o algoritmo de Graham com o método de ordenação mergesort
     getrusage(RUSAGE_SELF, &start);
 
     Graham *graham = new Graham(stack);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     cout << "GRAHAM+MERGESORT: " << difTempoUsuario(&start, &end) << "s" << endl
          << endl;
 
-    //
+    // Implementa o algoritmo de Graham com o método de ordenação insertion sort
     getrusage(RUSAGE_SELF, &start);
 
     Graham *graham = new Graham(stack);
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     cout << "GRAHAM+INSERTIONSORT: " << difTempoUsuario(&start, &end) << "s" << endl
          << endl;
 
-    //
+    // Implementa o algoritmo de Graham com o método de ordenação counting sort
     getrusage(RUSAGE_SELF, &start);
 
     Graham *graham = new Graham(stack);
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
     cout << "GRAHAM+LINEAR: " << difTempoUsuario(&start, &end) << "s" << endl
          << endl;
 
-    //
+    // Implementa o algoritmo de Jarvis
     getrusage(RUSAGE_SELF, &start);
 
     Jarvis *jarvis = new Jarvis(stack);

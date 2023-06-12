@@ -10,6 +10,7 @@
 Jarvis::Jarvis(Stack *stack)
 {
   this->stack = stack;
+
   this->convexHull = new Stack(stack->getSize());
 }
 

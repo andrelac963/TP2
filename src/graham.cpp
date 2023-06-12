@@ -10,6 +10,7 @@
 Graham::Graham(Stack *stack)
 {
   this->stack = stack;
+
   this->convexHullStack = new Stack(stack->getSize());
 }
 
@@ -182,14 +183,20 @@ void Graham::convexHullGrahamMergeSort()
   }
 }
 
+void insertionSort()
+{
+}
+
 void Graham::convexHullGrahamInsertionSort()
 {
-  // TODO
+}
+
+void countingSort()
+{
 }
 
 void Graham::convexHullGrahamCountingSort()
 {
-  // TODO
 }
 
 void Graham::print()
