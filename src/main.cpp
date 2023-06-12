@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "pointcollection.hpp"
+#include "jarvis.hpp"
 
 using namespace std;
 
@@ -22,6 +23,12 @@ int main(int argc, char **argv)
     pointCollection->print();
 
     pointCollection->~PointCollection();
+
+    Jarvis *jarvis = new Jarvis(pointCollection);
+
+    jarvis->run();
+
+    jarvis->print();
 
     delete pointCollection;
   }

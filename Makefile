@@ -14,8 +14,8 @@ SRC = src
 OBJ = obj
 INC = include
 BIN = bin
-OBJS = $(OBJ)/main.o $(OBJ)/pointcollection.o 
-HDRS = $(INC)/pointcollection.hpp
+OBJS = $(OBJ)/main.o $(OBJ)/pointcollection.o $(OBJ)/jarvis.o $(OBJ)/graham.o
+HDRS = $(INC)/pointcollection.hpp $(INC)/jarvis.hpp $(INC)/graham.hpp
 CFLAGS = -Wall -c -I$(INC)
 
 EXE = $(BIN)/main
@@ -31,6 +31,12 @@ $(OBJ)/main.o: $(HDRS) $(SRC)/main.cpp
 
 $(OBJ)/pointcollection.o: $(HDRS) $(SRC)/pointcollection.cpp
 	$(CC) $(CFLAGS) -o $(OBJ)/pointcollection.o $(SRC)/pointcollection.cpp
+
+$(OBJ)/jarvis.o: $(HDRS) $(SRC)/jarvis.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/jarvis.o $(SRC)/jarvis.cpp
+
+$(OBJ)/graham.o: $(HDRS) $(SRC)/graham.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/graham.o $(SRC)/graham.cpp
 	
 clean:
 	rm -f $(EXE) $(OBJS) gmon.out
