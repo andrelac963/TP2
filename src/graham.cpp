@@ -183,23 +183,213 @@ void Graham::convexHullGrahamMergeSort()
   }
 }
 
-void insertionSort()
+void insertionSort(Stack *stack)
 {
+  int n = stack->getSize();
+
+  for (int i = 1; i < n; i++)
+  {
+    Point key = stack->getPoint(i);
+    int j = i - 1;
+
+    while (j >= 0 && stack->getPoint(j).getY() > key.getY())
+    {
+      stack->setPoint(j + 1, stack->getPoint(j));
+      j--;
+    }
+
+    stack->setPoint(j + 1, key);
+  }
+
+  for (int i = 1; i < n; i++)
+  {
+    for (int j = i + 1; j < n; j++)
+    {
+      double a1 = stack->getPoint(i).getAngle();
+      double a2 = stack->getPoint(j).getAngle();
+
+      if (a1 > a2)
+      {
+        Point aux = stack->getPoint(i);
+        stack->setPoint(i, stack->getPoint(j));
+        stack->setPoint(j, aux);
+      }
+    }
+  }
 }
 
 void Graham::convexHullGrahamInsertionSort()
 {
+  int n = this->stack->getSize();
+  int yMin = this->stack->getPoint(0).getY();
+  int indexYMin = 0;
+
+  for (int i = 1; i < n; i++)
+  {
+    if (this->stack->getPoint(i).getY() < yMin)
+    {
+      yMin = this->stack->getPoint(i).getY();
+      indexYMin = i;
+    }
+  }
+
+  this->stack->swap(0, indexYMin);
+
+  Point p0 = this->stack->getPoint(0);
+
+  insertionSort(this->stack);
+
+  int m = 1;
+
+  for (int i = 1; i < n; i++)
+  {
+    while (i < n - 1 && orientation(p0, this->stack->getPoint(i), this->stack->getPoint(i + 1)) == 0)
+    {
+      i++;
+    }
+
+    this->stack->setPoint(m, this->stack->getPoint(i));
+    m++;
+  }
+
+  if (m < 3)
+  {
+    return;
+  }
+
+  this->convexHullStack->push(this->stack->getPoint(0));
+  this->convexHullStack->push(this->stack->getPoint(1));
+  this->convexHullStack->push(this->stack->getPoint(2));
+
+  for (int i = 3; i < m; i++)
+  {
+    while (this->convexHullStack->getSize() > 1 && orientation(this->convexHullStack->peekNextToTop(), this->convexHullStack->peek(), this->stack->getPoint(i)) != 2)
+    {
+      this->convexHullStack->pop();
+    }
+
+    this->convexHullStack->push(this->stack->getPoint(i));
+  }
 }
 
-void countingSort()
+void countingSort(Stack *stack)
 {
+  int n = stack->getSize();
+  int max = stack->getPoint(0).getY();
+
+  for (int i = 1; i < n; i++)
+  {
+    if (stack->getPoint(i).getY() > max)
+    {
+      max = stack->getPoint(i).getY();
+    }
+  }
+
+  int *count = new int[max + 1];
+
+  for (int i = 0; i <= max; i++)
+  {
+    count[i] = 0;
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    count[stack->getPoint(i).getY()]++;
+  }
+
+  for (int i = 1; i <= max; i++)
+  {
+    count[i] += count[i - 1];
+  }
+
+  Point *output = new Point[n];
+
+  for (int i = n - 1; i >= 0; i--)
+  {
+    output[count[stack->getPoint(i).getY()] - 1] = stack->getPoint(i);
+    count[stack->getPoint(i).getY()]--;
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    stack->setPoint(i, output[i]);
+  }
+
+  for (int i = 1; i < n; i++)
+  {
+    for (int j = i + 1; j < n; j++)
+    {
+      double a1 = stack->getPoint(i).getAngle();
+      double a2 = stack->getPoint(j).getAngle();
+
+      if (a1 > a2)
+      {
+        Point aux = stack->getPoint(i);
+        stack->setPoint(i, stack->getPoint(j));
+        stack->setPoint(j, aux);
+      }
+    }
+  }
+
+  delete[] count;
+  delete[] output;
 }
 
 void Graham::convexHullGrahamCountingSort()
 {
+  int n = this->stack->getSize();
+  int yMin = this->stack->getPoint(0).getY();
+  int indexYMin = 0;
+
+  for (int i = 1; i < n; i++)
+  {
+    if (this->stack->getPoint(i).getY() < yMin)
+    {
+      yMin = this->stack->getPoint(i).getY();
+      indexYMin = i;
+    }
+  }
+
+  this->stack->swap(0, indexYMin);
+
+  Point p0 = this->stack->getPoint(0);
+
+  countingSort(this->stack);
+
+  int m = 1;
+
+  for (int i = 1; i < n; i++)
+  {
+    while (i < n - 1 && orientation(p0, this->stack->getPoint(i), this->stack->getPoint(i + 1)) == 0)
+    {
+      i++;
+    }
+
+    this->stack->setPoint(m, this->stack->getPoint(i));
+    m++;
+  }
+
+  if (m < 3)
+  {
+    return;
+  }
+
+  this->convexHullStack->push(this->stack->getPoint(0));
+  this->convexHullStack->push(this->stack->getPoint(1));
+  this->convexHullStack->push(this->stack->getPoint(2));
+
+  for (int i = 3; i < m; i++)
+  {
+    while (this->convexHullStack->getSize() > 1 && orientation(this->convexHullStack->peekNextToTop(), this->convexHullStack->peek(), this->stack->getPoint(i)) != 2)
+    {
+      this->convexHullStack->pop();
+    }
+
+    this->convexHullStack->push(this->stack->getPoint(i));
+  }
 }
 
-void Graham::print()
+void Graham::printConvexHull()
 {
   cout << endl;
   cout << "FECHO CONVEXO:" << endl;

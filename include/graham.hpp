@@ -26,7 +26,7 @@ public:
   void convexHullGrahamMergeSort();
   void convexHullGrahamInsertionSort();
   void convexHullGrahamCountingSort();
-  void print();
+  void printConvexHull();
 };
 
 #endif

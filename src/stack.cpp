@@ -194,7 +194,6 @@ void Stack::print()
 
   for (int i = 0; i <= this->top; i++)
   {
-    cout << "(" << this->points[i].getX() << ", " << this->points[i].getY() << ")" << endl
-         << endl;
+    cout << "(" << this->points[i].getX() << ", " << this->points[i].getY() << ")" << endl;
   }
 }

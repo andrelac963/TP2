@@ -25,7 +25,7 @@ public:
   ~Jarvis();
   int orientation(Point p, Point q, Point r);
   void convexHullJarvis();
-  void print();
+  void printConvexHull();
 };
 
 #endif

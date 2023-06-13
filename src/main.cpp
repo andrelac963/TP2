@@ -32,44 +32,47 @@ int main(int argc, char **argv)
     // Implementa o algoritmo de Graham com o método de ordenação mergesort
     getrusage(RUSAGE_SELF, &start);
 
-    Graham *graham = new Graham(stack);
+    Graham *grahamMergeSort = new Graham(stack);
 
-    graham->convexHullGrahamMergeSort();
+    grahamMergeSort->convexHullGrahamMergeSort();
 
-    delete graham;
+    grahamMergeSort->printConvexHull();
+
+    delete grahamMergeSort;
 
     getrusage(RUSAGE_SELF, &end);
 
-    cout << "GRAHAM+MERGESORT: " << difTempoUsuario(&start, &end) << "s" << endl
-         << endl;
+    cout << "GRAHAM+MERGESORT: " << difTempoUsuario(&start, &end) << "s" << endl;
 
     // Implementa o algoritmo de Graham com o método de ordenação insertion sort
     getrusage(RUSAGE_SELF, &start);
 
-    Graham *graham = new Graham(stack);
+    Graham *grahamInsertionSort = new Graham(stack);
 
-    graham->convexHullGrahamInsertionSort();
+    grahamInsertionSort->convexHullGrahamInsertionSort();
 
-    delete graham;
+    grahamInsertionSort->printConvexHull();
+
+    delete grahamInsertionSort;
 
     getrusage(RUSAGE_SELF, &end);
 
-    cout << "GRAHAM+INSERTIONSORT: " << difTempoUsuario(&start, &end) << "s" << endl
-         << endl;
+    cout << "GRAHAM+INSERTIONSORT: " << difTempoUsuario(&start, &end) << "s" << endl;
 
     // Implementa o algoritmo de Graham com o método de ordenação counting sort
     getrusage(RUSAGE_SELF, &start);
 
-    Graham *graham = new Graham(stack);
+    Graham *grahamCountingSort = new Graham(stack);
 
-    graham->convexHullGrahamCountingSort();
+    grahamCountingSort->convexHullGrahamCountingSort();
 
-    delete graham;
+    grahamCountingSort->printConvexHull();
+
+    delete grahamCountingSort;
 
     getrusage(RUSAGE_SELF, &end);
 
-    cout << "GRAHAM+LINEAR: " << difTempoUsuario(&start, &end) << "s" << endl
-         << endl;
+    cout << "GRAHAM+LINEAR: " << difTempoUsuario(&start, &end) << "s" << endl;
 
     // Implementa o algoritmo de Jarvis
     getrusage(RUSAGE_SELF, &start);
@@ -78,12 +81,13 @@ int main(int argc, char **argv)
 
     jarvis->convexHullJarvis();
 
+    jarvis->printConvexHull();
+
     delete jarvis;
 
     getrusage(RUSAGE_SELF, &end);
 
-    cout << "JARVIS: " << difTempoUsuario(&start, &end) << "s" << endl
-         << endl;
+    cout << "JARVIS: " << difTempoUsuario(&start, &end) << "s" << endl;
   }
   catch (FailedToOpenFile e)
   {

@@ -56,7 +56,7 @@ void Jarvis::convexHullJarvis()
   } while (p != l);
 }
 
-void Jarvis::print()
+void Jarvis::printConvexHull()
 {
   cout << endl;
   cout << "FECHO CONVEXO:" << endl;
