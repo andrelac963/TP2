@@ -10,13 +10,11 @@
 Jarvis::Jarvis(Stack *stack)
 {
   this->stack = stack;
-
   this->convexHull = new Stack(stack->getSize());
 }
 
 Jarvis::~Jarvis()
 {
-  delete this->stack;
   delete this->convexHull;
 }
 
@@ -37,23 +35,29 @@ void Jarvis::convexHullJarvis()
   if (n < 3)
     return;
 
-  int l = 0;
-  for (int i = 1; i < n; i++)
-    if (this->stack->getPoint(i).getX() < this->stack->getPoint(l).getX())
-      l = i;
+  int lowestIndex = 0;
 
-  int p = l, q;
+  for (int i = 1; i < n; i++)
+  {
+    if (this->stack->getPoint(i).getX() < this->stack->getPoint(lowestIndex).getX())
+    {
+      lowestIndex = i;
+    }
+  }
+
+  int currentPointIndex = lowestIndex, nextPointIndex;
+
   do
   {
-    this->convexHull->push(this->stack->getPoint(p));
-    q = (p + 1) % n;
+    this->convexHull->push(this->stack->getPoint(currentPointIndex));
+    nextPointIndex = (currentPointIndex + 1) % n;
     for (int i = 0; i < n; i++)
     {
-      if (this->orientation(this->stack->getPoint(p), this->stack->getPoint(i), this->stack->getPoint(q)) == 2)
-        q = i;
+      if (this->orientation(this->stack->getPoint(currentPointIndex), this->stack->getPoint(i), this->stack->getPoint(nextPointIndex)) == 2)
+        nextPointIndex = i;
     }
-    p = q;
-  } while (p != l);
+    currentPointIndex = nextPointIndex;
+  } while (currentPointIndex != lowestIndex);
 }
 
 void Jarvis::printConvexHull()

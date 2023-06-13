@@ -21,7 +21,7 @@ CFLAGS = -Wall -c -I$(INC)
 EXE = $(BIN)/main
 
 all:  $(EXE)
-	$(EXE) ENTRADA10.txt
+	$(EXE) ENTRADA1000.txt
 
 $(BIN)/main: $(OBJS)
 	$(CC) -g -o $(BIN)/main $(OBJS) $(LIBS)

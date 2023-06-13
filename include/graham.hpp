@@ -20,9 +20,13 @@ private:
   Stack *stack;
   Stack *convexHullStack;
 
+  int orientation(Point p, Point q, Point r);
+  int getMinIndex(int n);
+
 public:
   Graham(Stack *stack);
   ~Graham();
+  void convexHullGraham(int n, Point p0);
   void convexHullGrahamMergeSort();
   void convexHullGrahamInsertionSort();
   void convexHullGrahamCountingSort();

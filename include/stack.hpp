@@ -40,12 +40,12 @@ private:
   int top;
 
 public:
-  Stack(const int &size);
+  Stack(const int size);
   Stack(const string &filename);
   ~Stack();
   void push(Point point);
   void swap(const int &index1, const int &index2);
-  void setPoint(const int &index, Point point);
+  void setPoint(const int &index, const Point &point);
   Point getPoint(const int &index);
   Point *getPoints();
   Point pop();

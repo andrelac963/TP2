@@ -7,25 +7,29 @@
 
 #include "stack.hpp"
 
-Stack::Stack(const int &size)
+Stack::Stack(const int size)
 {
+  if (size <= 0)
+  {
+    throw OutOfRange{"O tamanho da pilha deve ser maior que zero."};
+  }
+
   this->size = size;
   this->points = new Point[size];
   this->top = -1;
 }
 
-int fileSize(const string &filename)
+Stack::Stack(const string &filename)
 {
   ifstream file(filename);
   string line;
-  int size = 0;
+  int lineCount = 0;
 
   if (file.is_open())
   {
-
     while (getline(file, line))
     {
-      size++;
+      lineCount++;
     }
 
     file.close();
@@ -35,31 +39,25 @@ int fileSize(const string &filename)
     throw FailedToOpenFile{filename};
   }
 
-  return size;
-}
-
-Stack::Stack(const string &filename)
-{
-  this->size = fileSize(filename);
+  this->size = lineCount;
   this->points = new Point[this->size];
   this->top = -1;
 
-  ifstream file(filename);
-  Point point;
-  string line;
+  file.open(filename);
 
   if (file.is_open())
   {
-
+    int currentIndex = 0;
     while (getline(file, line))
     {
       try
       {
+        Point point;
         point.setX(stoi(line.substr(0, line.find(" "))));
         point.setY(stoi(line.substr(line.find(" ") + 1, line.length())));
         this->push(point);
       }
-      catch (exception e)
+      catch (const exception &e)
       {
         throw FailedToReadFile{filename};
       }
@@ -88,7 +86,7 @@ void Stack::push(Point point)
   this->points[++this->top] = point;
 }
 
-void Stack::setPoint(const int &index, Point point)
+void Stack::setPoint(const int &index, const Point &point)
 {
   if (index < 0 || index > this->top)
   {
@@ -157,17 +155,12 @@ Point Stack::peekNextToTop()
     throw OutOfRange{"A pilha está vazia."};
   }
 
-  if (this->top == 0)
-  {
-    return this->points[this->top];
-  }
-
   return this->points[this->top - 1];
 }
 
 int Stack::getSize()
 {
-  return this->size;
+  return this->top + 1;
 }
 
 int Stack::getTop()
@@ -194,6 +187,6 @@ void Stack::print()
 
   for (int i = 0; i <= this->top; i++)
   {
-    cout << "(" << this->points[i].getX() << ", " << this->points[i].getY() << ")" << endl;
+    cout << this->points[i].getX() << " " << this->points[i].getY() << endl;
   }
 }
