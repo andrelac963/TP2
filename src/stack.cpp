@@ -47,7 +47,6 @@ Stack::Stack(const string &filename)
 
   if (file.is_open())
   {
-    int currentIndex = 0;
     while (getline(file, line))
     {
       try

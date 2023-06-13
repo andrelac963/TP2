@@ -7,17 +7,20 @@
 
 #include "graham.hpp"
 
+// Construtor
 Graham::Graham(Stack *stack)
 {
   this->stack = stack;
   this->convexHullStack = new Stack(stack->getSize());
 }
 
+// Destrutor
 Graham::~Graham()
 {
   delete this->convexHullStack;
 }
 
+// Retorna a orientação de três pontos
 int Graham::orientation(Point p, Point q, Point r)
 {
   int val = (q.getY() - p.getY()) * (r.getX() - q.getX()) -
@@ -30,11 +33,12 @@ int Graham::orientation(Point p, Point q, Point r)
   return (val > 0) ? 1 : 2;
 }
 
+// Retorna o índice do ponto com menor coordenada Y
 int Graham::getMinIndex(int n)
 {
   int minIndex = 0;
 
-  for (int i = 1; i < n; i++)
+  for (int i = 0; i < n; i++)
   {
     if (this->stack->getPoint(i).getY() < this->stack->getPoint(minIndex).getY() || (this->stack->getPoint(i).getY() == this->stack->getPoint(minIndex).getY() && this->stack->getPoint(i).getX() < this->stack->getPoint(minIndex).getX()))
     {
@@ -45,6 +49,7 @@ int Graham::getMinIndex(int n)
   return minIndex;
 }
 
+// Implementação do algoritmo de Graham utilizando
 void Graham::convexHullGraham(int n, Point p0)
 {
   int m = 1;
@@ -159,6 +164,7 @@ void merge(Stack *stack, int left, int middle, int right)
   delete[] rightArray;
 }
 
+// Implementação do algoritmo de ordenação merge sort
 void mergeSort(Stack *stack, int left, int right)
 {
   int middle;
@@ -173,6 +179,7 @@ void mergeSort(Stack *stack, int left, int right)
   }
 }
 
+// Implementação do algoritmo de Graham utilizando o merge sort
 void Graham::convexHullGrahamMergeSort()
 {
   int n = this->stack->getSize();
@@ -188,6 +195,7 @@ void Graham::convexHullGrahamMergeSort()
   this->convexHullGraham(n, p0);
 }
 
+// Implementação do algoritmo de ordenação por inserção
 void insertionSort(Stack *stack, int n)
 {
   for (int i = 1; i < n; i++)
@@ -200,6 +208,7 @@ void insertionSort(Stack *stack, int n)
   }
 }
 
+// Implementação do algoritmo de Graham utilizando o insertion sort
 void Graham::convexHullGrahamInsertionSort()
 {
   int n = this->stack->getSize();
@@ -215,6 +224,7 @@ void Graham::convexHullGrahamInsertionSort()
   this->convexHullGraham(n, p0);
 }
 
+// Implementação do algoritmo de ordenação por contagem
 void countingSort(Stack *stack, int n)
 {
   int max = stack->getPoint(0).getY();
@@ -275,6 +285,7 @@ void countingSort(Stack *stack, int n)
   delete[] output;
 }
 
+// Implementação do algoritmo de Graham utilizando o counting sort
 void Graham::convexHullGrahamCountingSort()
 {
   int n = this->stack->getSize();
@@ -290,6 +301,7 @@ void Graham::convexHullGrahamCountingSort()
   this->convexHullGraham(n, p0);
 }
 
+// Imprime o fecho convexo
 void Graham::printConvexHull()
 {
   cout << endl;

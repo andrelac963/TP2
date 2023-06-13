@@ -14,20 +14,22 @@ SRC = src
 OBJ = obj
 INC = include
 BIN = bin
-OBJS = $(OBJ)/main.o $(OBJ)/stack.o $(OBJ)/point.o $(OBJ)/jarvis.o $(OBJ)/graham.o
+OBJS = $(OBJ)/fecho.o $(OBJ)/stack.o $(OBJ)/point.o $(OBJ)/jarvis.o $(OBJ)/graham.o
 HDRS = $(INC)/stack.hpp $(INC)/point.hpp $(INC)/jarvis.hpp $(INC)/graham.hpp
 CFLAGS = -Wall -c -I$(INC)
 
-EXE = $(BIN)/main
+EXE = $(BIN)/fecho
 
 all:  $(EXE)
+	$(EXE) ENTRADA10.txt
+	$(EXE) ENTRADA100.txt
 	$(EXE) ENTRADA1000.txt
 
-$(BIN)/main: $(OBJS)
-	$(CC) -g -o $(BIN)/main $(OBJS) $(LIBS)
+$(BIN)/fecho: $(OBJS)
+	$(CC) -g -o $(BIN)/fecho $(OBJS) $(LIBS)
 
-$(OBJ)/main.o: $(HDRS) $(SRC)/main.cpp
-	$(CC) $(CFLAGS) -o $(OBJ)/main.o $(SRC)/main.cpp
+$(OBJ)/fecho.o: $(HDRS) $(SRC)/fecho.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/fecho.o $(SRC)/fecho.cpp
 
 $(OBJ)/stack.o: $(HDRS) $(SRC)/stack.cpp
 	$(CC) $(CFLAGS) -o $(OBJ)/stack.o $(SRC)/stack.cpp
