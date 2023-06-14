@@ -16,14 +16,14 @@ INC = include
 BIN = bin
 OBJS = $(OBJ)/fecho.o $(OBJ)/stack.o $(OBJ)/point.o $(OBJ)/jarvis.o $(OBJ)/graham.o
 HDRS = $(INC)/stack.hpp $(INC)/point.hpp $(INC)/jarvis.hpp $(INC)/graham.hpp
-CFLAGS = -Wall -c -I$(INC)
+CFLAGS = -Wall -c -g -I$(INC)
 
 EXE = $(BIN)/fecho
 
 all:  $(EXE)
-	$(EXE) ENTRADA10.txt
-	$(EXE) ENTRADA100.txt
-	$(EXE) ENTRADA1000.txt
+	$(EXE) inputs/ENTRADA10.txt
+	$(EXE) inputs/ENTRADA100.txt
+	$(EXE) inputs/ENTRADA1000.txt
 
 $(BIN)/fecho: $(OBJS)
 	$(CC) -g -o $(BIN)/fecho $(OBJS) $(LIBS)
